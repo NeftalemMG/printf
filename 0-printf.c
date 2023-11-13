@@ -80,7 +80,7 @@ int _printf(const char *format, ...)
 					printPercent(&counter);
 					break;
 				default:
-					print_percent(&counter);
+					printPercent(&counter);
 					write(1, format, 1);
 					counter += 2;
 					break;
