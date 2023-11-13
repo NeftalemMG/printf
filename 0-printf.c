@@ -46,6 +46,22 @@ void printPercent(int *counter)
 }
 
 /**
+ * printDecimal - Prints a decimal.
+ *
+ * @num: The decimal to print.
+ * @counter: Pointer to the count of characters printed.
+ */
+void printDecimal(int num, int *counter)
+{
+	char decimalStr[12];
+	int n;
+
+	n = sprintf(decimalStr, "%d", num);
+	write(1, decimalStr, n);
+	(*counter) += n;
+}
+
+/**
  * _printf - A function that duplicates all the functionalities
  * of the "printf" function built from scratch
  *
@@ -62,7 +78,6 @@ int _printf(const char *format, ...)
 
 	counter = 0;
 	va_start(args, format);
-
 	while (*format != '\0')
 	{
 		if (*format == '%')
@@ -78,6 +93,10 @@ int _printf(const char *format, ...)
 					break;
 				case '%':
 					printPercent(&counter);
+					break;
+				case 'd':
+				case 'i':
+					printDecimal(va_arg(args, int), &counter);
 					break;
 				default:
 					printPercent(&counter);
