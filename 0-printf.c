@@ -25,92 +25,95 @@
 
 int _printf(const char *format, ...)
 {
-    int i;
+	int integer;
+	unsigned int unsignedInteger;
+	float floater;
+	char *stringer;
+	char character;
+	int charactercounter;
+	size_t i;
+	int n;
+	/*
+	 * This n variable will hold the length of the converted string
+	 * so it can be used in the function "write"
+	 * */
+	char inttostr[12]; 
+	/*
+	 * This array assumes that there will be 11 digits
+	 * in a number. We can defintley make it more.
+	 */
+	char uInttostr[12];
+	char floattostr[30]; 
+	/* 
+	 * I looked for lower and uppercase hexadecimal printf initialization
+	 * methods but all I got was the "%x" and "%X" that come with
+	 * printf. I haven't looked more into it to yet. I WILL COME BACK
+	 * TO THIS.
+	 */
+	va_list args;
 
-    int integer;
-    unsigned int unsignedInteger;
-    float floater;
-    char *stringer;
-    char character;
+	charactercounter = 0;
+	va_start (args, format);
 
-    int n;
-    /*
-    this n variable will hold the length of the converted string
-    so it can be used in the function "write"
-    */
-    char inttostr[12]; 
-            /*
-            This array assumes that there will be 11 digits
-            in a number. We can defintley make it more.
-            */
-    char uInttostr[12];
-    char floattostr[30]; 
-
-    /* 
-    I looked for lower and uppercase hexadecimal printf initialization
-    methods but all I got was the "%x" and "%X" that come with
-    printf. I haven't looked more into it to yet. I WILL COME BACK
-    TO THIS.
-    */
-    
-    va_list args;
-    va_start (args, format);
-
-    for (i = 0; i < strlen(format); i++)
-    {
-        if (format[i] == '%' && format[i + 1] == 'd')
-        {
-            integer = va_arg(args, int);
-            i++;
-            n = sprintf(inttostr, "%d", integer);
-            write(1, inttostr, n);
-        }
-        else if (format[i] == '%' && format[i + 1] == 'u')
-        {
-            unsignedInteger = va_arg(args, unsigned int);
-            i++;
-            n = sprintf(uInttostr, "%u", unsignedInteger);
-            write(1, uInttostr, n);
-        }
-        else if (format[i] == '%' && format[i + 1] == 'f')
-        {
-            floater = va_arg(args, double);
-            i++; 
-            n = sprintf(floattostr, "%f", floater);
-            write(1, floattostr, n);
-        }
-        else if (format[i] == '%' && format[i + 1] == 's')
-        {
-            stringer = va_arg(args, char *);
-            i++;
-            write(1, stringer, strlen(stringer));
-        }
-        else if (format[i] == '%' && format[i + 1] == 'c')
-        {
-            character = va_arg(args, int);
-            i++;
-            write(1, &character, 1);
-        }
-        else
-        {
-            printf("Input the right format!");
-            /**
-             * This defintely is not going to be the else
-             * case. We will make changes to it.
-            */
-        }
-    }
-    va_end(args);
-    return (0);
+	for (i = 0; i < strlen(format); i++)
+	{
+		if (format[i] == '%' && format[i + 1] != '\0')
+		{
+			i++;
+			if (format[i] == 'd')
+			{
+				integer = va_arg(args, int);
+				n = sprintf(inttostr, "%d", integer);
+				write(1, inttostr, n);
+				charactercounter += n;
+			}
+			else if (format[i] == 'u')
+			{
+				unsignedInteger = va_arg(args, unsigned int);
+				n = sprintf(uInttostr, "%u", unsignedInteger);
+				write(1, uInttostr, n);
+				charactercounter += n;
+			}
+			else if (format[i] == 'f')
+			{
+				floater = va_arg(args, double);
+				n = sprintf(floattostr, "%f", floater);
+				write(1, floattostr, n);
+				charactercounter += n;
+			}
+			else if (format[i] == 's')
+			{
+				stringer = va_arg(args, char *);
+				write(1, stringer, strlen(stringer));
+				charactercounter += strlen(stringer);
+			}
+			else if (format[i] == 'c')
+			{
+				character = va_arg(args, int);
+				write(1, &character, 1);
+				charactercounter++;
+			}
+			else
+			{
+				write(1, &format[i], 1);
+				charactercounter++;
+			}
+		}
+		else
+		{
+			write(1, &format[i], 1);
+			charactercounter++;
+		}
+	}
+	va_end(args);
+	return (charactercounter);
 }
-/**
+/*
 int main (void)
 {
-    _printf("%d%s", 78, "chupapimugagno");
-    _printf("%s", "whatishappening");
-    _printf("%f", 2.5);
-    _printf("%u", 90);
-
+    int count = _printf("%d%s", 78, "chupapimugagno");
+    printf("\nNumber of characters printed: %d\n", count);
     return (0);
 }
 */
+
