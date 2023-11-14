@@ -19,7 +19,7 @@ void printSString(char *str, int *counter)
 	{
 		if ((*str > 0 && *str < 32) || *str >= 127)
 		{
-			char hex[4];
+			char hex[6];
 
 			sprintf(hex, "\\x%02X", (unsigned char)*str);
 			write(1, hex, 4);
@@ -96,10 +96,13 @@ void rot13(char *c)
  */
 void printRot13String(char *str, int *counter)
 {
+	char rotated;
+
 	while (*str != '\0')
 	{
-		rot13(str);
-		write(1, str, 1);
+		rotated = *str;
+		rot13(&rotated);
+		write(1, &rotated, 1);
 		(*counter)++;
 		str++;
 	}
