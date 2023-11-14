@@ -76,7 +76,7 @@ int _printf(const char *format, ...)
 	va_end(args);
 	return (counter);
 }
-int main(void)
+/*int main(void)
 {
     _printf("Characters: %c\n", 'A');
     _printf("String: %s\n", "Hello, World!");
@@ -84,4 +84,4 @@ int main(void)
     _printf("Decimal: %d\n", 42);
     _printf("Binary: %b\n", 42);
     return (0);
-}
+}*/
