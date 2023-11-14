@@ -35,20 +35,100 @@ int _printf(const char *format, ...)
 					printPercent(&counter);
 					break;
 				case 'd':
+					if (format[1] == 'l')
+					{
+						format++;
+						printLongDecimal(va_arg(args, long), &counter);
+					}
+					else if (format[1] == 'h')
+					{
+						format++;
+						printShortDecimal(va_arg(args, int), &counter);
+					}
+					else
+					{
+						printDecimal(va_arg(args, int), &counter);
+					}
+					break;
 				case 'i':
-					printDecimal(va_arg(args, int), &counter);
+					if (format[1] == 'l')
+					{
+						format++;
+						printLongDecimal(va_arg(args, long), &counter);
+					}
+					else if (format[1] == 'h')
+					{
+						format++;
+						printShortDecimal(va_arg(args, int), &counter);
+					}
+					else
+					{
+						printDecimal(va_arg(args, int), &counter);
+					}
 					break;
 				case 'u':
-					printUnsignedDecimal(va_arg(args, unsigned int), &counter);
+					if (format[1] == 'l')
+					{
+						format++;
+						printLongUnsigned(va_arg(args, unsigned long), &counter);
+					}
+					else if (format[1] == 'h')
+					{
+						format++;
+						printShortUnsigned(va_arg(args, unsigned int), &counter);
+					}
+					else
+					{
+						printUnsignedDecimal(va_arg(args, unsigned int), &counter);
+					}
 					break;
 				case 'o':
-					printOctal(va_arg(args, unsigned int), &counter);
+					if (format[1] == 'l')
+					{
+						format++;
+						printLongOctal(va_arg(args, unsigned long), &counter);
+					}
+					else if (format[1] == 'h')
+					{
+						format++;
+						printShortOctal(va_arg(args, unsigned int), &counter);
+					}
+					else
+					{
+						printOctal(va_arg(args, unsigned int), &counter);
+					}
 					break;
 				case 'x':
-					printHexLower(va_arg(args, unsigned int), &counter);
+					if (format[1] == 'l')
+					{
+						format++;
+						printLongHexLower(va_arg(args, unsigned long), &counter);
+					}
+					else if (format[1] == 'h')
+					{
+						format++;
+						printShortHexLower(va_arg(args, unsigned int), &counter);
+					}
+					else
+					{
+						printHexLower(va_arg(args, unsigned int), &counter);
+					}
 					break;
 				case 'X':
-					printHexUpper(va_arg(args, unsigned int), &counter);
+					if (format[1] == 'l')
+					{
+						format++;
+						printLongHexUpper(va_arg(args, unsigned long), &counter);
+					}
+					else if (format[1] == 'h')
+					{
+						format++;
+						printShortHexUpper(va_arg(args, unsigned int), &counter);
+					}
+					else
+					{
+						printHexUpper(va_arg(args, unsigned int), &counter);
+					}
 					break;
 				case 'b':
 					printBinary(va_arg(args, unsigned int), &counter);
@@ -58,6 +138,12 @@ int _printf(const char *format, ...)
 					break;
 				case 'p':
 					printPointer(va_arg(args, void *), &counter);
+					break;
+				case 'r':
+					printReversedString(va_arg(args, char *), &counter);
+					break;
+				case 'R':
+					printRot13String(va_arg(args, char *), &counter);
 					break;
 				default:
 					printPercent(&counter);
@@ -76,7 +162,7 @@ int _printf(const char *format, ...)
 	va_end(args);
 	return (counter);
 }
-/*int main(void)
+int main(void)
 {
     _printf("Characters: %c\n", 'A');
     _printf("String: %s\n", "Hello, World!");
@@ -84,4 +170,4 @@ int _printf(const char *format, ...)
     _printf("Decimal: %d\n", 42);
     _printf("Binary: %b\n", 42);
     return (0);
-}*/
+}

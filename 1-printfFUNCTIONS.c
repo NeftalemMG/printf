@@ -71,12 +71,18 @@ void printBinary(unsigned int num, int *counter)
 {
 	int i;
 	char bit;
+	int started;
 
+	started = 0;
 	for (i = 31; i >= 0; i--)
 	{
 		bit = ((num >> i) & 1) + '0';
-		write(1, &bit, 1);
-		(*counter)++;
+		if (bit == '1' || started)
+		{
+			write(1, &bit, 1);
+			(*counter)++;
+			started = 1;
+		}
 	}
 }
 /*

@@ -17,5 +17,18 @@ void printUnsignedDecimal(unsigned int num, int *counter);
 void printOctal(unsigned int num, int *counter);
 void printHexLower(unsigned int num, int *counter);
 void printHexUpper(unsigned int num, int *counter);
+void printReversedString(char *str, int *counter);
+void rot13(char *c);
+void printRot13String(char *str, int *counter);
+void printLongDecimal(long num, int *counter);
+void printShortDecimal(short num, int *counter);
+void printLongUnsigned(unsigned long num, int *counter);
+void printShortUnsigned(unsigned short num, int *counter);
+void printLongOctal(unsigned long num, int *counter);
+void printShortOctal(unsigned short num, int *counter);
+void printLongHexLower(unsigned long num, int *counter);
+void printShortHexLower(unsigned short num, int *counter);
+void printLongHexUpper(unsigned long num, int *counter);
+void printShortHexUpper(unsigned short num, int *counter);
 
 #endif /* MAIN_H */
