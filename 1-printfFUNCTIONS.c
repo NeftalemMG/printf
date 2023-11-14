@@ -28,9 +28,20 @@ void printString(char *str, int *counter)
 	}
 	while (*str != '\0')
 	{
-		write(1, str, 1);
+		if ((*str > 0 && *str < 32) || *str >= 127)
+		{
+			char hex[4];
+
+			sprintf(hex, "\\x%02X", (unsigned char)*str);
+			write(1, hex, 4);
+			(*counter) += 4;
+		}
+		else
+		{
+			write(1, str, 1);
+			(*counter)++;
+		}
 		str++;
-		(*counter)++;
 	}
 }
 
@@ -70,11 +81,10 @@ void printDecimal(int num, int *counter)
 void printBinary(unsigned int num, int *counter)
 {
 	int i;
+	char bit;
 
 	for (i = 31; i >= 0; i--)
 	{
-		char bit;
-
 		bit = ((num >> i) & 1) + '0';
 		write(1, &bit, 1);
 		(*counter)++;

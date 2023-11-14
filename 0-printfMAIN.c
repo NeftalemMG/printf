@@ -41,6 +41,9 @@ int _printf(const char *format, ...)
 				case 'b':
 					printBinary(va_arg(args, unsigned int), &counter);
 					break;
+				case 'S':
+					printString(va_arg(args, char *), &counter);
+					break;
 				default:
 					printPercent(&counter);
 					write(1, format, 1);
