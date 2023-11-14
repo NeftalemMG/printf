@@ -62,60 +62,24 @@ void printDecimal(int num, int *counter)
 }
 
 /**
- * _printf - A function that duplicates all the functionalities
- * of the "printf" function built from scratch
+ * printBinary - Prints an unsigned integer in binary.
  *
- * @format: Format string with optional conversion specifiers.
- *
- * Description: printf
- *
- * Return: Number of characters printed (excluding the null byte).
+ * @num: The unsigned integer to print.
+ * @counter: Pointer to the count of characters printed.
  */
-int _printf(const char *format, ...)
+void printBinary(unsigned int num, int *counter)
 {
-	va_list args;
-	int counter;
+	int i;
 
-	counter = 0;
-	va_start(args, format);
-	while (*format != '\0')
+	for (i = 31; i >= 0; i--)
 	{
-		if (*format == '%')
-		{
-			format++;
-			switch (*format)
-			{
-				case 'c':
-					printCharacter(va_arg(args, int), &counter);
-					break;
-				case 's':
-					printString(va_arg(args, char *), &counter);
-					break;
-				case '%':
-					printPercent(&counter);
-					break;
-				case 'd':
-				case 'i':
-					printDecimal(va_arg(args, int), &counter);
-					break;
-				default:
-					printPercent(&counter);
-					write(1, format, 1);
-					counter += 2;
-					break;
-			}
-		}
-		else
-		{
-			write(1, format, 1);
-			counter++;
-		}
-		format++;
-	}
-	va_end(args);
-	return (counter);
-}
+		char bit;
 
+		bit = ((num >> i) & 1) + '0';
+		write(1, &bit, 1);
+		(*counter)++;
+	}
+}
 /*
  * int main(void)
 {
