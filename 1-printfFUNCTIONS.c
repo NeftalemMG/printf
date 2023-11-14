@@ -28,19 +28,8 @@ void printString(char *str, int *counter)
 	}
 	while (*str != '\0')
 	{
-		if ((*str > 0 && *str < 32) || *str >= 127)
-		{
-			char hex[4];
-
-			sprintf(hex, "\\x%02X", (unsigned char)*str);
-			write(1, hex, 4);
-			(*counter) += 4;
-		}
-		else
-		{
-			write(1, str, 1);
-			(*counter)++;
-		}
+		write(1, str, 1);
+		(*counter)++;
 		str++;
 	}
 }

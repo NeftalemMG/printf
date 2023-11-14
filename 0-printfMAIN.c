@@ -38,11 +38,26 @@ int _printf(const char *format, ...)
 				case 'i':
 					printDecimal(va_arg(args, int), &counter);
 					break;
+				case 'u':
+					printUnsignedDecimal(va_arg(args, unsigned int), &counter);
+					break;
+				case 'o':
+					printOctal(va_arg(args, unsigned int), &counter);
+					break;
+				case 'x':
+					printHexLower(va_arg(args, unsigned int), &counter);
+					break;
+				case 'X':
+					printHexUpper(va_arg(args, unsigned int), &counter);
+					break;
 				case 'b':
 					printBinary(va_arg(args, unsigned int), &counter);
 					break;
 				case 'S':
-					printString(va_arg(args, char *), &counter);
+					printSString(va_arg(args, char *), &counter);
+					break;
+				case 'p':
+					printPointer(va_arg(args, void *), &counter);
 					break;
 				default:
 					printPercent(&counter);
@@ -60,4 +75,13 @@ int _printf(const char *format, ...)
 	}
 	va_end(args);
 	return (counter);
+}
+int main(void)
+{
+    _printf("Characters: %c\n", 'A');
+    _printf("String: %s\n", "Hello, World!");
+    _printf("Percent: %%\n");
+    _printf("Decimal: %d\n", 42);
+    _printf("Binary: %b\n", 42);
+    return (0);
 }
