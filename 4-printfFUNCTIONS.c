@@ -2,7 +2,6 @@
 #include <stdarg.h>
 #include <unistd.h>
 
-
 /**
  * printLongDecimal - Prints a decimal in the long format.
  *
