@@ -2,6 +2,8 @@
 #include <stdarg.h>
 #include <unistd.h>
 
+
+
 /**
  * printCharacter - Prints a character.
  *
