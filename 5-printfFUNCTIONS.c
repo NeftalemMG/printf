@@ -2,6 +2,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 
+
 /**
  * printShortOctal - Prints a short unsigned integer in octal format.
  *
